@@ -1,0 +1,13 @@
+.navBar {
+    height: 10vh;
+    width: 100vw;
+    background-color: #34a5da;
+    display: flex;
+    justify-content: left;
+}
+
+.navBar h2 {
+    font-size: 2.5vh;
+    padding-top: 3.5vh;
+    padding-left: 4vw;
+}

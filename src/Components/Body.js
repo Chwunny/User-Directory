@@ -1,19 +1,29 @@
 import React, { useState } from 'react'
 import './Body.css'
 import data from '../data'
+import Footer from './Footer'
 
 const Body = () => {
     const [index, setIndex] = useState(0)
 
-    const test = () => {
-        setIndex((index + 1))
+    const plus = () => {
+        if (index < 24){
+            setIndex((index + 1))
+        }
     }
+
+    const minus = () => {
+        if (index > 0){
+            setIndex((index - 1))
+        } 
+    }
+
     return (
         <div>
             <div className="mainBody">
                 <div className="container">
                     <div className="counter">
-                        <h1 onClick={test}>{index + 1}/25</h1>
+                        <h1>{index + 1}/25</h1>
                     </div>
                     <div className="name">
                         <h1>{data[index].name.first} {data[index].name.last}</h1>
@@ -38,6 +48,7 @@ const Body = () => {
                         </ol>
                     </div>
                 </div>
+                <Footer functions={{plus, minus}}></Footer>
             </div>
         </div>
     )
@@ -45,7 +56,4 @@ const Body = () => {
 
 export default Body
 
-/* <li className="listItems">list</li> */
-// <li className="listItems">list</li>
-// <li className="listItems">list</li>
-// 
+// plusFn={plus} minusFn={minus}

@@ -5,9 +5,10 @@ import Footer from './Footer'
 
 const Body = () => {
     const [index, setIndex] = useState(0)
+    const [arbitraryVariable, setArbitraryVariable] = useState(data) // I have no idea why this works
 
     const plus = () => {
-        if (index < 24){
+        if (index < data.length - 1){
             setIndex((index + 1))
         }
     }
@@ -18,12 +19,16 @@ const Body = () => {
         } 
     }
 
+    const deleteEntry =  ()  => {
+        setArbitraryVariable(data.splice(index, 1)) // This doesnt make any sense either, why would the DOM update with this but not on when you just splice data
+    }
+
     return (
         <div>
             <div className="mainBody">
                 <div className="container">
                     <div className="counter">
-                        <h1>{index + 1}/25</h1>
+                        <h1>{index + 1}/{data.length}</h1>
                     </div>
                     <div className="name">
                         <h1>{data[index].name.first} {data[index].name.last}</h1>
@@ -48,7 +53,7 @@ const Body = () => {
                         </ol>
                     </div>
                 </div>
-                <Footer functions={{plus, minus}}></Footer>
+                <Footer functions={{plus, minus, deleteEntry}}></Footer>
             </div>
         </div>
     )
@@ -56,4 +61,3 @@ const Body = () => {
 
 export default Body
 
-// plusFn={plus} minusFn={minus}

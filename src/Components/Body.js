@@ -16,13 +16,17 @@ const Body = () => {
     const plus = () => {
         if (index < data.length - 1){
             setIndex((index + 1))
+        } else {
+            setIndex(0)
         }
     }
 
     const minus = () => {
         if (index > 0){
             setIndex((index - 1))
-        } 
+        } else {
+            setIndex(data.length - 1)
+        }
     }
 
     const deleteEntry =  ()  => {

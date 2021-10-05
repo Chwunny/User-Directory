@@ -2,7 +2,7 @@ import React from 'react'
 import './NewForm.css'
 
 const NewForm = (props) => {
-    const { submitForm, setState, state } = props.functions
+    const { submitForm, setState, state, banishForm } = props.functions
     
     const handleChange = (e) => {
         const value = e.target.value
@@ -12,6 +12,7 @@ const NewForm = (props) => {
         })
     }
     return (
+        <>
         <form onSubmit={submitForm}>
             <input type="text" onChange={handleChange} name="firstName" value={state.firstName} placeholder="First name"/>
             <input type="text" onChange={handleChange} name="lastName" value={state.lastName} placeholder="Last name"/>
@@ -22,6 +23,8 @@ const NewForm = (props) => {
             <input type="text" onChange={handleChange} name="favoriteMovie" value={state.favoriteMovie} placeholder="Favorites movie"/>
             <button>Submit</button>
         </form>
+        <button onClick={banishForm}>Cancel</button>
+        </>
     )
 }
 

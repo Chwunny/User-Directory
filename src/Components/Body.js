@@ -3,6 +3,7 @@ import './Body.css'
 import data from '../data'
 import Footer from './Footer'
 import NewForm from './NewForm'
+import Edit from './Edit'
 
 
 const Body = () => {
@@ -10,21 +11,23 @@ const Body = () => {
     const [arbitraryVariable, setArbitraryVariable] = useState(data) // I have no idea why this works
     const [formShown, setFormShown] = useState(false)
     const [state, setState] = useState({ firstName: "", lastName: "", city: "", country: "", employer: "", title: "", favoriteMovie: "" })
+    const [editFormShown, setEditFormShown] = useState(false)
 
     let globalId = 26
 
     const plus = () => {
-        if (index < data.length - 1){
+
+        if (index < data.length - 1 && !editFormShown){
             setIndex((index + 1))
-        } else {
+        } else if (!editFormShown) {
             setIndex(0)
         }
     }
 
     const minus = () => {
-        if (index > 0){
+        if (index > 0 && !editFormShown){
             setIndex((index - 1))
-        } else {
+        } else if (!editFormShown) {
             setIndex(data.length - 1)
         }
     }
@@ -62,7 +65,34 @@ const Body = () => {
     const banishForm = () => {
         setFormShown(false)
     }
+
+    const summonEdit = () => {
+        setEditFormShown(true)
+    }
     
+    const banishEdit = () => {
+        setEditFormShown(false)
+    }
+
+    const submitEdit = (e) => {
+        e.preventDefault()
+
+        setArbitraryVariable(data.splice(index, 1, 
+            {
+                id: index,
+                name: { first: state.firstName, last: state.lastName },
+                city: state.city,
+                country: state.country,
+                employer: state.employer,
+                title: state.title,
+                favoriteMovies: state.favoriteMovie.split(',')
+            }
+        ))
+
+        setState({ firstName: "", lastName: "", city: "", country: "", employer: "", title: "", favoriteMovie: "" })
+        banishEdit()
+    }
+
     return (
         <div>
             <div className="mainBody">
@@ -93,8 +123,9 @@ const Body = () => {
                         </ol>
                     </div>
                 </div>
-                <Footer functions={{plus, minus, deleteEntry, summonForm}}></Footer>
-                {formShown ? <NewForm functions={{banishForm, submitForm, setState, state}}/> : null}
+                <Footer functions={{plus, minus, deleteEntry, summonForm, summonEdit}}></Footer>
+                {formShown ? <NewForm functions={{ submitForm, setState, banishForm, state }}/> : null}
+                {editFormShown ? <Edit functions={{ submitEdit, setState, banishEdit, state, index, arbitraryVariable }}/> : null}
             </div>
         </div>
     )
